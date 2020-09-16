@@ -2,7 +2,7 @@
 
 An example HTTP REST server with authentication and authorization.
 
-See the blog post on [RESTful authentication in Go](https://www.maragu.dk/blog/restful-authentication-in-go/) for background.
+See the blog post on [Authentication for REST APIs in Go](https://www.maragu.dk/blog/authentication-for-rest-apis-in-go/) for background.
 
 ## Usage
 
