@@ -38,6 +38,7 @@ func New(opts Options) *Server {
 
 func (s *Server) Start() error {
 	s.sm = scs.New()
+	s.sm.Cookie.Secure = true
 
 	s.setupRoutes()
 
