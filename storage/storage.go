@@ -1,7 +1,6 @@
 package storage
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"unicode/utf8"
@@ -26,7 +25,7 @@ const (
 )
 
 // Signup a user. Note that the given password is in cleartext and hashed here.
-func (s *Storer) Signup(ctx context.Context, name, password string) error {
+func (s *Storer) Signup(name, password string) error {
 	passwordLength := utf8.RuneCountInString(password)
 	if passwordLength < minPasswordLength || passwordLength > maxPasswordLength {
 		return fmt.Errorf("%v is outside the password length range of [%v,%v]", passwordLength, minPasswordLength, maxPasswordLength)
@@ -49,7 +48,7 @@ func (s *Storer) Signup(ctx context.Context, name, password string) error {
 
 // Login with a given name and password. The password is cleartext and hashed here.
 // Returns the user if succesful, without the password.
-func (s *Storer) Login(ctx context.Context, name, password string) (*model.User, error) {
+func (s *Storer) Login(name, password string) (*model.User, error) {
 	user, ok := s.users[name]
 	if !ok {
 		return nil, nil

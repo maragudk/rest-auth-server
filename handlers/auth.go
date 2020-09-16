@@ -32,7 +32,7 @@ func getUserFromContext(r *http.Request) model.User {
 }
 
 type signupper interface {
-	Signup(ctx context.Context, name, password string) error
+	Signup(name, password string) error
 }
 
 func SignupHandler(repo signupper) http.HandlerFunc {
@@ -49,7 +49,7 @@ func SignupHandler(repo signupper) http.HandlerFunc {
 			return
 		}
 
-		if err := repo.Signup(r.Context(), name, password); err != nil {
+		if err := repo.Signup(name, password); err != nil {
 			http.Error(w, err.Error(), http.StatusBadGateway)
 			return
 		}
@@ -57,7 +57,7 @@ func SignupHandler(repo signupper) http.HandlerFunc {
 }
 
 type loginner interface {
-	Login(ctx context.Context, name, password string) (*model.User, error)
+	Login(name, password string) (*model.User, error)
 }
 
 func LoginHandler(repo loginner, s sessionPutter) http.HandlerFunc {
@@ -78,7 +78,7 @@ func LoginHandler(repo loginner, s sessionPutter) http.HandlerFunc {
 			return
 		}
 
-		user, err := repo.Login(r.Context(), name, password)
+		user, err := repo.Login(name, password)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusBadGateway)
 			return
